@@ -1,17 +1,6 @@
 var sampleMailData =
     [
-        {"_id":"5ac1cb0f5c70fc3be8192186",
-            "boDmr":{"queue":"New Mail","status":"New"},
-            "boxofficeData":{
-                "Postal_Post_Location":{"fieldname":"Postal Post Location","pageno":"0","confidence":"100","value":""},
-                "Sender_Name":{"fieldname":"Sender Name","pageno":"0","confidence":"100","value":"HELLER AND FRISONE, LTD."},
-                "Recipient_Name":{"fieldname":"Recipient Name","pageno":"0","confidence":"100","value":""},
-                "Courier_Name":{"fieldname":"Courier_Name","pageno":"0","confidence":"100","value":"USPS"},
-                "Received_Time":{"fieldname":"Received_Time","pageno":"0","confidence":"100","value":"124120"},
-                "Received_Date":{"fieldname":"Received_Date","pageno":"0","confidence":"100","value":"20180307"}
-            },
-            "commonData":{"bo_lastModifiedDate":1522649884733,"bo_docType":"ENV"}
-        },
+       
         {"_id":"5ac1caea5c70fc3be819216a",
            "boDmr":{"queue":"New Mail","status":"New"},
            "boxofficeData":{
