@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const fingerprint = require('express-fingerprint');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -18,6 +19,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(fingerprint({
+  parameters :[
+    fingerprint.useragent,
+    fingerprint.geoip,
+    fingerprint.acceptHeaders
+  ]
+}))
 
 app.use('/', indexRouter);
 //app.use('/users', usersRouter);

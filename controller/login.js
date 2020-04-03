@@ -54,6 +54,7 @@ module.exports = {
     },
     
     homepage: function(req, res, next) {
+                console.log(req.fingerprint);
                 res.render('index', { title: 'Express' });
     }
 }
