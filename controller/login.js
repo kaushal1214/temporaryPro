@@ -54,6 +54,11 @@ module.exports = {
     },
     
     homepage: function(req, res, next) {
+                console.log(req.headers['x-real-ip']);
+                console.log(req.ip);
+                console.log(req.ips);
+                console.log(req.headers['X-FORWARDED-FOR']);
+                console.log(req.connection.remoteAddress);
                 console.log(req.fingerprint);
                 res.render('index', { title: 'Express' });
     }
