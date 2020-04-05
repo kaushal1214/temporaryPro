@@ -59,7 +59,7 @@ module.exports = {
                         });
                     }
                 } else {
-                    res.status(401).json({status:'Wrong Username or Password'});
+                    res.render('login',{error:'Wrong Username or Password'});
                 }
                 
             } 

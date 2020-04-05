@@ -22,7 +22,7 @@
                     <form method="POST" action="/login">
                         <fieldset>
                            <div class="form-group">
-                                <input type="text" name="username" autocomplete="off" autofocus class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                <input type="text" name="username" autocomplete="off" autofocus class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter username">
                             </div>
                             <div class="form-group">
                                 <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
@@ -33,9 +33,20 @@
 
                 </div>
             </div>
+            {{#if error}}
+            <div class="alert alert-dismissible alert-info">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong>Login Error!</strong> 
+              <br/>
+              {{error}} 
+              <br/>
+              Use 'admin' as username and password.
+            </div>
+            {{/if}}
         </div>
         <div class="col-md-2">           
         </div>
     </div>
 
 </div>
+<script src="/js/bootstrap.min.js"></script>
