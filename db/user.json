@@ -1,2 +1,36 @@
-{"username":"admin","password":"admin","securitycode":123456
+{
+  "username": "admin",
+  "password": "admin",
+  "securitycode": 123456,
+  "fingerprint": {
+    "hash": "fcc19081311759b8d5a60a1cbe36c819",
+    "components": {
+      "useragent": {
+        "browser": {
+          "family": "Chrome",
+          "version": "80"
+        },
+        "device": {
+          "family": "Other",
+          "version": "0"
+        },
+        "os": {
+          "family": "Linux",
+          "major": "0",
+          "minor": "0"
+        }
+      },
+      "acceptHeaders": {
+        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        "language": "en-US,en;q=0.9"
+      },
+      "geoip": {
+        "country": null,
+        "city": null,
+        "timezone": null,
+        "region": null,
+        "ll": null
+      }
+    }
+  }
 }

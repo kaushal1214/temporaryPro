@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const fingerprint = require('express-fingerprint');
-const geoip = require('geoip-lite');
+const geoIP = require('geoip-lite');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -25,7 +25,19 @@ app.use(fingerprint({
   parameters :[
     fingerprint.useragent,
     fingerprint.acceptHeaders,
-    fingerprint.geoip
+    fingerprint.geoip,
+    function(next){
+      let deviceData = geoIP.lookup(this.req.ip);
+      next(null,{
+        geoip: {
+          country: deviceData?deviceData.country:null,
+          city: deviceData?deviceData.city:null,
+          timezone: deviceData? deviceData.timezone:null,
+          region: deviceData? deviceData.region:null,
+          ll:deviceData?deviceData.ll:null
+        }
+      });
+    }
   ]
 }))
 
