@@ -17,28 +17,28 @@
                 <div class="card-header">Provide Other Details</div>
                 <div class="card-body">
                     <h4 class="card-title">Enter 5 Digit Security Code</h4>
-                    
+                    You tried to login from unknown device. Verify your identity.
                     <form method="POST" action="/mfa">
                         <fieldset>
                            <div class="form-group">
                              <div class="row">
                                <div class="col-md-2">
-                                  <input type="text" style="font-size:xx-large" autofocus oninput="changeFocus(2);" name="securitycode1" maxlength="1" class="form-control">
+                                  <input type="text" autocomplete="off" style="font-size:xx-large" autofocus oninput="changeFocus(2);" name="securitycode1"  id="securitycode1" maxlength="1" class="form-control">
                                </div>
                                <div class="col-md-2">
-                                 <input type="text" style="font-size:xx-large" name="securitycode2" oninput="changeFocus(3);" id="securitycode2" maxlength="1" class="form-control">
+                                 <input type="text" autocomplete="off" style="font-size:xx-large" name="securitycode2" oninput="changeFocus(3);" id="securitycode2" maxlength="1" class="form-control">
                                </div>
                                <div class="col-md-2">
-                                 <input type="text" style="font-size:xx-large" name="securitycode3" oninput="changeFocus(4);" id="securitycode3" maxlength="1" class="form-control">
+                                 <input type="text" autocomplete="off" style="font-size:xx-large" name="securitycode3" oninput="changeFocus(4);" id="securitycode3" maxlength="1" class="form-control">
                                </div>
                                <div class="col-md-2">
-                                  <input type="text" style="font-size:xx-large" name="securitycode4" oninput="changeFocus(5);" id="securitycode4" maxlength="1" class="form-control">
+                                  <input type="text" autocomplete="off" style="font-size:xx-large" name="securitycode4" oninput="changeFocus(5);" id="securitycode4" maxlength="1" class="form-control">
                                </div>
                                <div class="col-md-2">
-                                  <input type="text" style="font-size:xx-large" name="securitycode5" oninput="changeFocus(6);" id="securitycode5" maxlength="1" class="form-control">
+                                  <input type="text" autocomplete="off" style="font-size:xx-large" name="securitycode5" oninput="changeFocus(6);" id="securitycode5" maxlength="1" class="form-control">
                                </div>
                                <div class="col-md-2">
-                                  <input type="text" style="font-size:xx-large" name="securitycode6" id="securitycode6" maxlength="1" class="form-control">
+                                  <input type="text" autocomplete="off" style="font-size:xx-large" name="securitycode6" id="securitycode6" maxlength="1" class="form-control">
                                </div>
                                
                              </div>
@@ -49,6 +49,16 @@
 
                 </div>
             </div>
+             {{#if error}}
+            <div class="alert alert-dismissible alert-danger">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong>MFA Error!</strong> 
+              <br/>
+              {{error}} 
+              <br/>
+              You have entered incorrect SecurityCode.
+            </div>
+            {{/if}}
         </div>
         <div class="col-md-4">           
         </div>

@@ -93,7 +93,7 @@ module.exports = {
                         res.render('welcome', viewModel);
                     });
                 } else {
-                    res.status(401).json({status:'Not Admin.'});
+                    res.render('mfa',{error:'MFA Validation Failed!'});
                 }
             } else {
                 console.log(err);
