@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<br/>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <div class="card border-primary mb-3">
+                <div class="card-header">Provide Other Details</div>
+                <div class="card-body">
+                    <h4 class="card-title">Enter 5 Digit Security Code</h4>
+                    
+                    <form method="POST" action="/mfa">
+                        <fieldset>
+                           <div class="form-group">
+                             <div class="row">
+                               <div class="col-md-2">
+                                  <input type="text" style="font-size:xx-large" autofocus oninput="changeFocus(2);" name="securitycode1" maxlength="1" class="form-control">
+                               </div>
+                               <div class="col-md-2">
+                                 <input type="text" style="font-size:xx-large" name="securitycode2" oninput="changeFocus(3);" id="securitycode2" maxlength="1" class="form-control">
+                               </div>
+                               <div class="col-md-2">
+                                 <input type="text" style="font-size:xx-large" name="securitycode3" oninput="changeFocus(4);" id="securitycode3" maxlength="1" class="form-control">
+                               </div>
+                               <div class="col-md-2">
+                                  <input type="text" style="font-size:xx-large" name="securitycode4" oninput="changeFocus(5);" id="securitycode4" maxlength="1" class="form-control">
+                               </div>
+                               <div class="col-md-2">
+                                  <input type="text" style="font-size:xx-large" name="securitycode5" oninput="changeFocus(6);" id="securitycode5" maxlength="1" class="form-control">
+                               </div>
+                               <div class="col-md-2">
+                                  <input type="text" style="font-size:xx-large" name="securitycode6" id="securitycode6" maxlength="1" class="form-control">
+                               </div>
+                               
+                             </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </fieldset>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">           
+        </div>
+    </div>
+
+</div>
+<script src="/js/main.js"></script>

@@ -1,44 +1,6 @@
-var sampleMailData =
-    [
-       
-        {"_id":"5ac1caea5c70fc3be819216a",
-           "boDmr":{"queue":"New Mail","status":"New"},
-           "boxofficeData":{
-                "Postal_Post_Location":{"fieldname":"Postal Post Location","pageno":"0","confidence":"100","value":""},
-                "Sender_Name":{"fieldname":"Sender Name","pageno":"0","confidence":"100","value":"PEREZ-KUDZMA LAW OFFICE, P.C."},
-                "Recipient_Name":{"fieldname":"Recipient Name","pageno":"0","confidence":"100","value":"AT T"},
-                "Courier_Name":{"fieldname":"Courier_Name","pageno":"0","confidence":"100","value":"USPS"},
-                "Received_Time":{"fieldname":"Received_Time","pageno":"0","confidence":"100","value":"124120"},
-                "Received_Date":{"fieldname":"Received_Date","pageno":"0","confidence":"100","value":"20180307"}
-            },
-            "commonData":{"bo_lastModifiedDate":1522649859596,"bo_docType":"ENV"}
-        },
-        {"_id":"5ac1cade5c70fc3be8192158",
-            "boDmr":{"queue":"New Mail","status":"New"},
-            "boxofficeData":{
-                "Postal_Post_Location":{"fieldname":"Postal Post Location","pageno":"0","confidence":"100","value":""},
-                "Sender_Name":{"fieldname":"Sender Name","pageno":"0","confidence":"100","value":"HELLER AND FRISONE, LTD."},
-                "Recipient_Name":{"fieldname":"Recipient Name","pageno":"0","confidence":"100","value":""},
-                "Courier_Name":{"fieldname":"Courier_Name","pageno":"0","confidence":"100","value":"USPS"},
-                "Received_Time":{"fieldname":"Received_Time","pageno":"0","confidence":"100","value":"124120"},
-                "Received_Date":{"fieldname":"Received_Date","pageno":"0","confidence":"100","value":"20180307"}
-            },
-            "commonData":{"bo_lastModifiedDate":1522649830641,"bo_docType":"ENV"}
-        },
-        {"_id":"5ac1cac25c70fc3be8192150",
-            "boDmr":{"queue":"New Mail","status":"New"},
-            "boxofficeData":{
-                "Postal_Post_Location":{"fieldname":"Postal Post Location","pageno":"0","confidence":"100","value":""},
-                "Sender_Name":{"fieldname":"Sender Name","pageno":"0","confidence":"100","value":"RAE Systems"},
-                "Recipient_Name":{"fieldname":"Recipient Name","pageno":"0","confidence":"100","value":"po III sill"},
-                "Courier_Name":{"fieldname":"Courier_Name","pageno":"0","confidence":"100","value":"USPS"},
-                "Received_Time":{"fieldname":"Received_Time","pageno":"0","confidence":"100","value":"124120"},
-                "Received_Date":{"fieldname":"Received_Date","pageno":"0","confidence":"100","value":"20180307"}
-            },
-            "commonData":{"bo_lastModifiedDate":1522649808937,"bo_docType":"ENV"}
-        }
-    ];
+let fs = require('fs');
 
+const USER_FILE = __dirname+'/../db/user.json';
 module.exports = {
     getToken: function(req,res){
         let mockUser = 'Kaushal Kishor',
@@ -54,12 +16,88 @@ module.exports = {
     },
     
     homepage: function(req, res, next) {
-                console.log(req.headers['x-real-ip']);
-                console.log(req.ip);
-                console.log(req.ips);
-                console.log(req.headers['X-FORWARDED-FOR']);
-                console.log(req.connection.remoteAddress);
-                console.log(req.fingerprint);
-                res.render('index', { title: 'Express' });
+                console.log(`${JSON.stringify(req.fingerprint)}`);
+                res.render('index');
+    },
+    loginPage: function(req,res){
+        res.render('login');
+    },
+
+    login: function(req,res){
+        let fingerprint = req.fingerprint;
+
+        fs.readFile(USER_FILE,'utf8',(err,jsonString)=>{
+            if(!err){
+                console.log(jsonString);
+                let userDetails = JSON.parse(jsonString);
+
+                if(userDetails.username==req.body.username && userDetails.password === req.body.password)
+                {
+                    if(userDetails.fingerprint)
+                    {
+                        if(fingerprint.hash===userDetails.fingerprint.hash)
+                        {
+                            let data = userDetails.fingerprint.components;
+                            let viewModel={device:{
+                                country:data.geoip.country,
+                                city:data.geoip.city,
+                                timezone:data.geoip.timezone,
+                                browser:data.useragent.browser.family,
+                                os:data.useragent.os.family
+                            }};
+
+                            res.render('welcome', viewModel);
+                        } else{ 
+
+                            res.render('mfa');
+                        } 
+                    } else {
+                        userDetails.fingerprint = fingerprint;
+                        userDetails = JSON.stringify(userDetails,null,2);
+                        fs.writeFile(USER_FILE, userDetails,(err,update)=>{
+                            res.render('welcome');
+                        });
+                    }
+                } else {
+                    res.status(401).json({status:'Wrong Username or Password'});
+                }
+                
+            } 
+        })
+       
+    },
+    mfa : function(req,res){
+        let code = req.body.securitycode1+req.body.securitycode2+req.body.securitycode3+req.body.securitycode4+req.body.securitycode5+req.body.securitycode6;
+
+        console.log('MFA request accepted');
+        fs.readFile(USER_FILE,'utf8',(err,jsonString)=>{
+
+            if(!err){
+
+                let userDetails = JSON.parse(jsonString);
+               
+                if(Number(code)===userDetails.securitycode) {
+                    console.log('SecurityCode matched');
+                    userDetails.fingerprint = req.fingerprint;
+                    
+                    fs.writeFile(USER_FILE, JSON.stringify(userDetails,null,2),(err)=>{
+                        console.log('Updated!');
+                        let data = userDetails.fingerprint.components;
+                        let viewModel={device:{
+                            country:data.geoip.country,
+                            city:data.geoip.city,
+                            timezone:data.geoip.timezone,
+                            browser:data.useragent.browser.family,
+                            os:data.useragent.os.family
+                        }};
+                        res.render('welcome', viewModel);
+                    });
+                } else {
+                    res.status(401).json({status:'Not Admin.'});
+                }
+            } else {
+                console.log(err);
+            }
+        })
     }
 }

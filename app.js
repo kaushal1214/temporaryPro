@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const fingerprint = require('express-fingerprint');
+const geoip = require('geoip-lite');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -23,8 +24,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(fingerprint({
   parameters :[
     fingerprint.useragent,
-    fingerprint.geoip,
-    fingerprint.acceptHeaders
+    fingerprint.acceptHeaders,
+    fingerprint.geoip
   ]
 }))
 
