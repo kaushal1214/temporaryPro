@@ -53,9 +53,17 @@ module.exports = {
                         } 
                     } else {
                         userDetails.fingerprint = fingerprint;
-                        userDetails = JSON.stringify(userDetails,null,2);
-                        fs.writeFile(USER_FILE, userDetails,(err,update)=>{
-                            res.render('welcome');
+                        
+                        fs.writeFile(USER_FILE, JSON.stringify(userDetails,null,2),(err)=>{
+                            let data = userDetails.fingerprint.components;
+                            let viewModel={device:{
+                                country:data.geoip.country,
+                                city:data.geoip.city,
+                                timezone:data.geoip.timezone,
+                                browser:data.useragent.browser.family,
+                                os:data.useragent.os.family
+                            }};
+                            res.render('welcome',viewModel);
                         });
                     }
                 } else {

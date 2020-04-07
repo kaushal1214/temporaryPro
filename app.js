@@ -37,6 +37,12 @@ app.use(fingerprint({
           ll:deviceData?deviceData.ll:null
         }
       });
+    },
+    function(next){
+      let canvasFingerprint = this.req.body.canvasFingerprint;
+      next(null,{
+        canvas: canvasFingerprint 
+      });
     }
   ]
 }))
