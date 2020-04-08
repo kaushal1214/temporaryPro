@@ -25,7 +25,6 @@ module.exports = {
 
     login: function(req,res){
         let fingerprint = req.fingerprint;
-
         fs.readFile(USER_FILE,'utf8',(err,jsonString)=>{
             if(!err){
                 console.log(jsonString);
