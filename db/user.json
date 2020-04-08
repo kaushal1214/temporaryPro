@@ -1,5 +1,37 @@
 {
   "username": "admin",
   "password": "admin",
-  "securitycode": 123456
+  "securitycode": 123456,
+  "fingerprint": {
+    "hash": "fef25da66cfc2c924970377dd0858654",
+    "components": {
+      "useragent": {
+        "browser": {
+          "family": "Chrome",
+          "version": "80"
+        },
+        "device": {
+          "family": "Other",
+          "version": "0"
+        },
+        "os": {
+          "family": "Linux",
+          "major": "0",
+          "minor": "0"
+        }
+      },
+      "acceptHeaders": {
+        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        "language": "en-US,en;q=0.9"
+      },
+      "geoip": {
+        "country": null,
+        "city": null,
+        "timezone": null,
+        "region": null,
+        "ll": null
+      },
+      "canvas": ""
+    }
+  }
 }
